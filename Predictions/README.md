@@ -1,6 +1,6 @@
-# Prediction script to test accuracy of models on hold-out set in ../data/TestImages.
+## Prediction script to test accuracy of models on hold-out set in ../data/TestImages/.
 
-## predictWith_unet_3d_res1.ipynb : prediction-notebook with unet_3d_res1 models. Set the paths to correct folders for test data and model location to run the notebook. Results should match those below:
+### predictWith_unet_3d_res1.ipynb : prediction-notebook with unet_3d_res1 models. Set the paths to correct folders for test data and model location to run the notebook. Results should match those below:
 
 IOU comparison of unet_3d_res1 model (preds) vs wu-model (Geophysics 2019):
 

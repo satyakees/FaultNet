@@ -3,7 +3,8 @@
 ## predictWith_unet_3d_res1.ipynb : prediction-notebook with unet_3d_res1 models. Set the paths to correct folders for test data and model location to run the notebook. Results should match those below:
 
 IOU comparison of unet_3d_res1 model (preds) vs wu-model (Geophysics 2019):
---- for filename 0 iou preds: 0.764095 wu-model: 0.695840 ----
+
+--- for filename 0 iou preds: 0.764095 wu-model: 0.695840 ----</n>
  ---- for filename 10 iou preds: 0.788676 wu-model: 0.706450 ----
  ---- for filename 11 iou preds: 0.703346 wu-model: 0.632799 ----
  ---- for filename 12 iou preds: 0.664703 wu-model: 0.609656 ----

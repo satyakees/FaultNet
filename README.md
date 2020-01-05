@@ -12,6 +12,6 @@ PyTorch implementation of various 3d-unets for fault picking. We use [Xinming Wu
 &nbsp;&nbsp;&nbsp;&nbsp; Conv1-----------------(+) IN -- LR  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|     
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|     
-&nbsp;&nsp;&nbsp;&nbsp; IN -- LR --Conv2 -------
+&nbsp;&nbsp;&nbsp;&nbsp; IN -- LR --Conv2 -------
 
-** conv1:        
+&nbsp;&nbsp;&nbsp;&nbsp; conv1: (3x3) conv3d with stride = 2        

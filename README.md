@@ -7,7 +7,7 @@ PyTorch implementation of various 3d-unets for fault picking. We use [Xinming Wu
 
 #### Current best model
 * unet_3d_res1 is a standard 3D-UNet with Residual blocks. The primary performace uplift comes from using a simple Res-block which is structured as:
-nbsp;nbsp; Conv1-------------(+) IN -- LR
-nbsp;nbsp; |nbsp;nbsp;nbsp;nbsp;nbsp;nbsp;nbsp;nbsp;nbsp;nbsp;nbsp;nbsp;nbsp;nbsp;|  
-nbsp;nbsp; |nbsp;nbsp;nbsp;nbsp;nbsp;nbsp;nbsp;nbsp;nbsp;nbsp;nbsp;nbsp;nbsp;nbsp;| 
-nbsp;nbsp; IN -- LR --Conv2 -- |   
+&nbsp;&nbsp; Conv1-------------(+) IN -- LR
+&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| 
+&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| 
+&nbsp;&nbsp; IN -- LR --Conv2 -- |   

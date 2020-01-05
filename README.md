@@ -1,11 +1,11 @@
-###  PyTorch implementation of Fault picking with 3D-UNets . Models to be added
+###  PyTorch implementation of Fault picking with 3D-UNets .
 
 
-#### Added basic 3D model with simple residual connection: unet_3d_res1 (in models dir). The residual block is set up as:
+#### Model1: Basic 3D model with simple residual connection ( unet_3d_res1 in models dir). The residual block is set up as:
 
 Conv1 ---------------(+) --IN --LReLU  
-|                     |  
-|                     |  
+|                     ||  
+|                     | |   
 IN -- LReLU ---Conv2 --      
 
 IN: instancenorm3d (Used IN throughout due to training with small batch size, each card gets only 1 image).  

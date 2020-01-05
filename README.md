@@ -4,9 +4,10 @@
 #### Model1: Basic 3D model with simple residual connection ( unet_3d_res1 in models dir). The residual block is set up as:
 
 Conv1 ---------------(+) --IN --LReLU  
-|			|  
-|			|   
-IN -- LReLU ---Conv2 --      
+|&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;|    
+|&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;|     
+IN -- LReLU ---Conv2 --
+
 
 IN: instancenorm3d (Used IN throughout due to training with small batch size, each card gets only 1 image).  
 LReLU: LeakyReLU  (Observed slight improvement over ReLU)  

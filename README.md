@@ -6,6 +6,12 @@ PyTorch implementation of various 3d-unets for fault picking. We use [Xinming Wu
 <p align="center"><img width="80%"  src="images/iou_comparison1.PNG" /></p>
 
 #### Current best model
+
+| Filename | IOU-WU | IOU-VNet | IOU-UNet_Res1 | IOU-Iter-Unet |
+| -- | -- | -- | -- | -- |
+| 0.npy | 0.695 | 0.672 | 0.000 | 0.000 |
+
+
 * unet_3d_res1 is a standard 3D-UNet with Residual blocks. The primary performace uplift comes from using a simple Res-block which is structured as:  
 
 

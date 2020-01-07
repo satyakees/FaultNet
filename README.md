@@ -7,10 +7,10 @@ PyTorch implementation of various 3d-unets for fault picking. We use [Xinming Wu
 
 #### Current best model IOUs
 
-| Filename | WU | VNet(CE) | UNet_Res1(CE) | Iter-Unet(CE) |
+| Filename | WU | VNet(CE+F1) | Modified VNet | UNet_Res1(CE) | Iter-Unet(CE) |
 | -- | -- | -- | -- | -- |
 | 0 | 0.695 | 0.672 | 0.000 | 0.000 |
-| 1 | 0.701 | 0.672 | 0.000 | 0.000 |
+| 1 | 0.701 | 0.721 | 0.000 | 0.000 |
 | 2 | 0.774 | 0.672 | 0.000 | 0.000 |
 | 3 | 0.686 | 0.672 | 0.000 | 0.000 |
 | 4 | 0.623 | 0.672 | 0.000 | 0.000 |
@@ -19,18 +19,19 @@ PyTorch implementation of various 3d-unets for fault picking. We use [Xinming Wu
 | 7 | 0.631 | 0.672 | 0.000 | 0.000 |
 | 8 | 0.698 | 0.672 | 0.000 | 0.000 |
 | 9 | 0.598 | 0.672 | 0.000 | 0.000 |
-| 10 | 0.706 | 0.672 | 0.000 | 0.000 |
-| 11 | 0.632 | 0.672 | 0.000 | 0.000 |
-| 12 | 0.609 | 0.672 | 0.000 | 0.000 |
-| 13 | 0.493 | 0.672 | 0.000 | 0.000 |
-| 14 | 0.598 | 0.672 | 0.000 | 0.000 |
-| 15 | 0.561 | 0.672 | 0.000 | 0.000 |
-| 16 | 0.652 | 0.672 | 0.000 | 0.000 |
-| 17 | 0.672 | 0.672 | 0.000 | 0.000 |
-| 18 | 0.576 | 0.672 | 0.000 | 0.000 |
-| 19 | 0.529 | 0.672 | 0.000 | 0.000 |
+| 10 | 0.706 | 0.724 | 0.000 | 0.000 |
+| 11 | 0.632 | 0.654 | 0.000 | 0.000 |
+| 12 | 0.609 | 0.614 | 0.000 | 0.000 |
+| 13 | 0.493 | 0.490 | 0.000 | 0.000 |
+| 14 | 0.598 | 0.588 | 0.000 | 0.000 |
+| 15 | 0.561 | 0.575 | 0.000 | 0.000 |
+| 16 | 0.652 | 0.636 | 0.000 | 0.000 |
+| 17 | 0.672 | 0.727 | 0.000 | 0.000 |
+| 18 | 0.576 | 0.585 | 0.000 | 0.000 |
+| 19 | 0.529 | 0.537 | 0.000 | 0.000 |
 
 * WU model results are grabbed from the predictions bu [Wu at](https://github.com/xinwucwp/faultSeg/tree/master/data/validation/predict)
+* VNet(CE+F1) is the original VNet implementation from [here](https://github.com/mattmacy/vnet.pytorch). The model is trained with cross-entropy3D (CE) + F1-score loss and outperforms the same model trained only with CE or F1
 
 
 * unet_3d_res1 is a standard 3D-UNet with Residual blocks. The primary performace uplift comes from using a simple Res-block which is structured as:  

@@ -30,10 +30,12 @@ PyTorch implementation of various 3d-unets for fault picking. We use [Xinming Wu
 | 18 | 0.576 | 0.585 | 0.000 | 0.000 | 0.000 | 
 | 19 | 0.529 | 0.537 | 0.000 | 0.000 | 0.000 | 
 
-* WU model results are grabbed from the predictions bu [Wu at](https://github.com/xinwucwp/faultSeg/tree/master/data/validation/predict)
-* VNet(CE+F1) is the original VNet implementation from [here](https://github.com/mattmacy/vnet.pytorch). The model is trained with cross-entropy3D (CE) + F1-score loss and outperforms the same model trained only with CE or F1
-
-
+* WU model results are grabbed from the predictions by [Wu at](https://github.com/xinwucwp/faultSeg/tree/master/data/validation/predict)
+* VNet(CE+F1) is the original VNet implementation from [here](https://github.com/mattmacy/vnet.pytorch). The only change from VNet-original is all batchnorm is replaced with InstanceNorm and ReLUs with LeakyReLU. The model is trained with cross-entropy3D (CE) + F1-score loss and outperforms the same model trained only with CE or F1
+* Modified VNet is a modification made to Vnet's downsampling and upsampling block and outperforms the original VNet and Wu. This model is trained with pure CE loss. Not tested CE+F1-score loss for this model.
+* UNet-Res1 is custom 3D UNet with Residual Blocks. The Res-block  is based on the Kaggle 2017 Data Science Bowl 2nd place winner, but has beedn modified to follow more closely a standard ResNet's Res-block layout. The model is trained with CE and outperforms all the previous models on the test set.
+* UNet-Res2 (* code not released *)
+ 
 * unet_3d_res1 is a standard 3D-UNet with Residual blocks. The primary performace uplift comes from using a simple Res-block which is structured as:  
 
 

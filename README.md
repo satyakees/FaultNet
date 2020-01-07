@@ -5,9 +5,9 @@ PyTorch implementation of various 3d-unets for fault picking. We use [Xinming Wu
 
 <p align="center"><img width="80%"  src="images/iou_comparison1.PNG" /></p>
 
-#### Current best model IOUs
+#### Current model IOUs
 
-| Filename | WU | VNet(CE+F1) | Modified VNet | UNet_Res1(CE) | Iter-Unet(CE) |
+| Filename | WU | VNet(CE+F1) | Modified VNet | UNet_Res1(CE) | Unet-Res2(**SOTA**) |
 | -- | -- | -- | -- | -- | -- |
 | 0 | 0.695 | 0.672 | 0.000 | 0.000 | 0.000 |
 | 1 | 0.701 | 0.721 | 0.000 | 0.000 | 0.000 |
@@ -34,7 +34,9 @@ PyTorch implementation of various 3d-unets for fault picking. We use [Xinming Wu
 * VNet(CE+F1) is the original VNet implementation from [here](https://github.com/mattmacy/vnet.pytorch). The only change from VNet-original is all batchnorm is replaced with InstanceNorm and ReLUs with LeakyReLU. The model is trained with cross-entropy3D (CE) + F1-score loss and outperforms the same model trained only with CE or F1
 * Modified VNet is a modification made to Vnet's downsampling and upsampling block and outperforms the original VNet and Wu. This model is trained with pure CE loss. Not tested CE+F1-score loss for this model.
 * UNet-Res1 is custom 3D UNet with Residual Blocks. The Res-block  is based on the Kaggle 2017 Data Science Bowl 2nd place winner, but has beedn modified to follow more closely a standard ResNet's Res-block layout. The model is trained with CE and outperforms all the previous models on the test set.
-* UNet-Res2 (* code not released *)
+* UNet-Res2 **( code not released)** This is a custom 3D UNet with additional tricks in the model architecture. This model is the **SOTA** in this repo. Arxiv paper is in the works for this and the code will be released with that. 
+
+ 
  
 * unet_3d_res1 is a standard 3D-UNet with Residual blocks. The primary performace uplift comes from using a simple Res-block which is structured as:  
 

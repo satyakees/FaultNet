@@ -8,31 +8,9 @@ from .networks_other import init_weights
 ## LeakyReLU slightly better than ReLU
 ## initialization via He
 
-class BasicConv(nn.Module):
-    """ 
-    layout:
-    [C, IN, R], [C, IN, R]  
-    """ 
-    def __init__(self, insize, outsize, kernel=3, init_stride=1,pad=1):
-        super().__init__()
-
-        self.conv1 = nn.Sequential(nn.Conv3d(in_size, out_size, kernel_size, init_stride, padding_size),
-                                   nn.InstanceNorm3d(out_size),
-                                   nn.LeakyReLU(inplace=True),)
-        self.conv2 = nn.Sequential(nn.Conv3d(out_size, out_size, kernel_size, 1, padding_size),
-                                   nn.InstanceNorm3d(out_size),
-                                   nn.LeakyReLU(inplace=True),)
-
-        for m in self.modules():
-            if isinstance(m, nn.Conv3d):
-                init_weights(m, init_type='kaiming')
-
-    def forward(self,x):
-        return self.conv2(self.conv1(x))
-
 class BasicRes(nn.Module):
     """ 
-    layout of Residual block (+: Residual connection:
+    layout of Residual block (+): Residual connection:
      C ------(+)-IN R    
      |        |
      |        |
@@ -63,10 +41,6 @@ class BasicRes(nn.Module):
         for m in self.modules():
             if isinstance(m, nn.Conv3d):
                 init_weights(m, init_type='kaiming')
-            #elif isinstance(m, (nn.BatchNorm3d, nn.InstanceNorm3d)):
-             #   nn.init.constant_(m.weight,1)
-              #  nn.init.constant_(m.bias, 0)
-                #init_weights(m, init_type='kaiming')
 
     def forward(self,x):
         out = self.conv1(x)
@@ -107,10 +81,6 @@ class BasicDecoder(nn.Module):
         for m in self.children():
             if isinstance(m, nn.Conv3d):
                 init_weights(m, init_type='kaiming')
-            #elif isinstance(m, (nn.BatchNorm3d, nn.InstanceNorm3d)):
-             #   nn.init.constant_(m.weight,1)
-              #  nn.init.constant_(m.bias, 0)
-                #init_weights(m, init_type='kaiming')
 
     def forward(self,x):
         if self.last_layer==False:
@@ -183,7 +153,7 @@ class unet_3D_Res1(nn.Module):
 
         conv1 = self.conv1(conv0)   ## 1, 32, 64, 64, 64
         conv2 = self.conv2(conv1)   ## 1, 64, 32, 32, 32
-        conv3 = self.conv3(conv2)   ## 1, 256, 16, 16, 16
+        conv3 = self.conv3(conv2)   ## 1, 256, 32, 32, 32
 
         # Upsample
         out = torch.cat((conv3,conv2),dim=1)

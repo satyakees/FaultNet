@@ -1,7 +1,7 @@
 """
 simple preprocess the fault training data and prep for loader
-Assumes data folder (root_path) has two dirs: images(with all the images), labels (with all the labels)
-All images and labels are numpy arrays (format : X,Y,Z)
+Assumes data folder (root_path) has two dirs: images(with all the images), labels (with all the labels). Filenames should be same in each dir
+All images and labels are numpy arrays (format : X,Y,Z; Z is the depth dim)
 """
 
 import os
@@ -37,7 +37,6 @@ class FaultPrep(data.Dataset):
         label_folder = os.path.join(self.root, "labels")
         label_path = os.path.join(label_folder, file_id + ".npy")
 
-        # read image and label and  
         image = np.load(image_path)   # X,Y,Z
         image = (image - np.mean(image))/np.std(image)
         image = image.transpose(2,1,0)  # Z,X,Y

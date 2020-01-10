@@ -1,8 +1,4 @@
-################################################################################
-# laoder for fault data
-# randomly selects 15% of data in the dir to be set aside for validation set
-# easily modifiable to use user defined validation set (TODO)
-##############################################################################
+# simple loader for fault data
 
 import os
 from sklearn.model_selection import train_test_split

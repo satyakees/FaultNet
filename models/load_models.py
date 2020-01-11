@@ -2,6 +2,7 @@ import os,sys
 import torch
 
 from .vnet import VNet
+from .vnet_modified import VNet_modified
 from .unet_3D_Res1 import unet_3D_Res1
 
 def getModel(model_arch, output_channels=2, parallel_flag=False, gpu_flag=True):
@@ -11,6 +12,10 @@ def getModel(model_arch, output_channels=2, parallel_flag=False, gpu_flag=True):
     if model_arch.lower() == 'vnet':
         print("loading VNet, output will have %d channels"%(output_channels))
         model = VNet()
+
+    elif model_arch.lower() == 'vnet_modified':
+        print("loading VNet Modified, output will have %d channels"%(output_channels))
+        model = VNet_modified()
 
     elif model_arch.lower() == 'unet_3d_res1':
         print("loading UNet3d with 1 Residual block, output will have %d channels"%(output_channels))

@@ -192,4 +192,4 @@ class VNet(nn.Module):
         out = self.up_tr64(out, out32)
         out = self.up_tr32(out, out16)
         out = self.out_tr(out)
-        return {'probs':out}
+        return {'logits':out}

@@ -86,7 +86,7 @@ def main(args):
             image_tensor = torch.from_numpy(image_load).float().cuda()
             preds = model(image_tensor)
 
-        logits = preds['probs']
+        logits = preds['logits']
         probits = F.softmax(logits,dim=1).data.cpu().numpy()
         pred_argmax = np.argmax(probits[0,:,:,:,:], axis=0).astype(np.float32)
         iou_preds = computeiou(pred_argmax,label_load)

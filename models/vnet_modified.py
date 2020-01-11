@@ -168,4 +168,4 @@ class VNet_modified(nn.Module):
         out = self.final1(out)
 
         #print("--- final out shape --", out.shape)
-        return {'probs':out}
+        return {'logits':out}

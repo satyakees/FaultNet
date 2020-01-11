@@ -10,12 +10,12 @@ def dice_random_weight(inputs, target, random_wt_flag,num_channels=2):
       dynamically class weighted dice score (fscore = tp/(tp+fp))
       usually worse than cross-entropy, if used alone
       should be used in conjunction with CE
-      assumes inputs is dictionary with key to logits :'probs'
+      assumes inputs is dictionary with key to logits :'logits'
     """
     if num_channels==1:
-        inputs = F.sigmoid(inputs['probs'])
+        inputs = F.sigmoid(inputs['logits'])
     else:
-        inputs = F.softmax(inputs['probs'],dim=1)
+        inputs = F.softmax(inputs['logits'],dim=1)
         inputs,_ =torch.max(inputs,1)
 
     smooth = 1
@@ -74,27 +74,3 @@ def CE_plus_Dice(input, target, flagmain, random_weight_flag=True, num_channels=
 
  
 
-
-########################
-
-class LossFunction():
-    """
-    Class to select loss function
-    """
-    @classmethod
-    def select(cls, loss_type):
-        if loss_type == 'bce_dice':
-            return bce_dice_loss
-        if loss_type == 'bce_dice_kl_l2':
-            return bce_dice_kl_l2
-        if loss_type == 'lovasz':
-            return lovasz_hinge
-        if loss_type == 'crossentropy3d':
-            return cross_entropy_3D
-        if loss_type == 'dicerandomwt':
-            return dice_random_weight
-
-if __name__ == '__main__':
-
-    loss = bce_dice_loss(torch.FloatTensor(np.array([1,0,1,0,1,0])), torch.FloatTensor(np.array([0,0,1,1,1,0])))
-    print(loss)

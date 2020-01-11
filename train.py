@@ -140,7 +140,7 @@ def main(args):
                 self.optimizer.step()
 
             train_loss +=loss.item()
-            train_accuracy.append(compute_iou(output_dict['probs'].detach().cpu().numpy(), \
+            train_accuracy.append(compute_iou(output_dict['logits'].detach().cpu().numpy(), \
                                               labels.detach().cpu().numpy())) 
 
         train_loss = train_loss/len(training_data_loader)
@@ -162,7 +162,7 @@ def main(args):
                     pred_dict = model(images.float().cuda())
                     loss = LossFunction(pred_dict, labels.long().cuda(),1)
                     validation_loss +=loss.cpu().numpy()
-                    val_accuracy.append(compute_iou(output_dict['probs'].detach().cpu().numpy(), \
+                    val_accuracy.append(compute_iou(output_dict['logits'].detach().cpu().numpy(), \
                                                     labels.detach().cpu().numpy()))
           
             validation_loss = validation_loss/len(validation_data_loader)

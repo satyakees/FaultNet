@@ -55,9 +55,11 @@ The current best model, with code released, in this repo is (UNet-Res1) which si
 * loaders: simple custom loader scripts to efficiently feed the data (TODO:augmentations)
 * scripts: to run the trainining (train.py) and prediction (predict.py) scripts. Both only work on GPU enabled devices.
 * Notebooks: example of running the prediction within a jupyter notebook (GPU enabled machine only)
-* data: TestSet is the holdout Test-set used for benchmarking the models. Train data is the 200 train image-label pairs grabbed from Wu. All files have been converted to numpy arrays in the format X,Y,Z (Z=depth dim).
 * zoo : trained model files. 
 
+### Training and Test Data
+
+* Download training and test dataset from [here](https://drive.google.com/drive/folders/1bC2FiccaC2UJEVkeX-GRE-K3e_i0n72M?usp=sharing). All data is in numpy format with shape X,Y,Z. The TestSet images have been used to benchmark the models. 
 
  
  

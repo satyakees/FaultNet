@@ -11,7 +11,7 @@ The current best model, with code released, in this repo is (UNet-Res1) which si
 
 #### Current model IOUs
 
-| Filename | WU | VNet(CE+F1) | VNet-Modified | UNet_Res1(CE) | Unet-Res2(**SOTA**) | Unet-Res2(TTA) **SOTA** |  
+| Filename | WU | VNet(CE+Dice) | VNet-Modified | UNet_Res1(CE) | Unet-Res2(**SOTA**) | Unet-Res2(TTA) **SOTA** |  
 | -- | -- | -- | -- | -- | -- | -- |  
 | 0 | 0.695 | 0.672 | 0.711 | 0.764 | 0.801 | 0.814 | 
 | 1 | 0.701 | 0.721 | 0.761 | 0.751 | 0.809 | 0.824 |
@@ -39,24 +39,24 @@ The current best model, with code released, in this repo is (UNet-Res1) which si
 
 * VNet is the original VNet implementation from [here](https://github.com/mattmacy/vnet.pytorch). The only change from VNet-original is all batchnorm is replaced with InstanceNorm and ReLUs with LeakyReLU. The model is trained with cross-entropy (CE) + dyanmically weighted Dice loss and outperforms the same model trained only with CE or Dice. 
 
-* Modified VNet is a modification made to Vnet's downsampling and upsampling block and outperforms the original VNet and Wu. Unfortunately the modifications means, we are not very faithful to the original VNet model layout. This model is trained with pure CE loss. Not tested CE+F1-score loss for this model.
+* Modified VNet is a modification made to Vnet's downsampling and upsampling block and outperforms the original VNet and Wu. Unfortunately the modifications means, we are not very faithful to the original VNet model layout. This model is trained with pure CE loss. Not tested CE+Dice(dynamic weighting) loss for this model.
 
 * UNet-Res1 is custom 3D UNet with Residual Blocks. The Res-block  is based on the Kaggle 2017 Data Science Bowl 2nd place winner, but has beedn modified to follow more closely a standard ResNet's Res-block layout. The model is trained with CE and outperforms all the previous models on the test set.
 
-* UNet-Res2 **( code not released)** This is a custom 3D UNet with additional tricks in the model architecture. This model is the **SOTA** in this repo. Arxiv paper is in the works for this and the code will be released with that. TTA results are included for this model to show additional uplift with TTA. 
+* UNet-Res2 **( code not released)** This is a custom 3D UNet with additional tricks in the model architecture. This model is the **SOTA** in this repo. Arxiv paper is in the works for this and the code will be released with that. TTA results are included for this model to show additional uplift with TTA. Again combo loss improves compared to training with CE loss only. 
 
-* Curios thing: Traiining with standard class weighting consistently produced much thicker faults than desired. Thus we switched to a combo-loss for the weaker models (VNet) where te weihting is done dynamically (or stochastic weighting) only for the Dice loss term. CE continues to be non weighted. 
+* Curios thing: Training with standard class weighting consistently produced much thicker faults than desired. Thus we switched to a combo-loss for the weaker models (VNet) where the weihting is done dynamically (or stochastic weighting) only for the Dice loss term. CE continues to be non weighted. 
 
-* Models are trained on V100 AWS machines. For Unet-Res2 model 16GB GPUs memory is required. 
+* Models are trained on V100 AWS machines. For Unet-Res2 model 16GB+ GPUs memory is required. 
 
 ### Directory layout
 
-* models : contains the 3 model codes
-* loaders: simple custom loader to efficiently feed the data
+* models : contains the 3 model scripts
+* loaders: simple custom loader scripts to efficiently feed the data (TODO:augmentations)
 * scripts: to run the trainining (train.py) and prediction (predict.py) scripts. Both only work on GPU enabled devices.
 * Notebooks: example of running the prediction within a jupyter notebook (GPU enabled machine only)
 * data: TestSet is the holdout Test-set used for benchmarking the models. Train data is the 200 train image-label pairs grabbed from Wu. All files have been converted to numpy arrays in the format X,Y,Z (Z=depth dim).
- 
+* zoo : trained model files. 
 
 
  

@@ -8,7 +8,7 @@ MODELPATH="path to saved models"
 INPUTDIR="path to test-set images"
 LABELDIR="path to ground-truth labels for test images"
 OUTPUTDIR="path to save predictions"
-WUFDIR="path to WU-model predictions"
+WUDIR="path to WU-model predictions"
 
 mkdir ${OUTPUTFILE}
 

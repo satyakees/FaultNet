@@ -47,7 +47,7 @@ The current best model, with code released, in this repo is (UNet-Res1) which si
 
 * Curios thing: Training with standard class weighting consistently produced much thicker faults than desired. Thus we switched to a combo-loss for the weaker models (VNet) where the weihting is done dynamically (or stochastic weighting) only for the Dice loss term. CE continues to be non weighted. 
 
-* Models are trained on V100 AWS machines. For Unet-Res2 model 16GB+ GPUs memory is required. 
+* Models are trained on V100 AWS machines. For Unet-Res2 model memory requirement is on the high side. All models are trained with batch-size=num_gpu_cards_on_machine 
 
 ### Directory layout
 

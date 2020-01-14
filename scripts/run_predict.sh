@@ -17,7 +17,7 @@ gpuuse=0  # which gpu card to use
 
 #arch=vnet_small
 #arch=vnet_small_res
-arch=unet3d_wu_iterchain
+arch=unet_3d_res1
 
 
 python ../predict.py\

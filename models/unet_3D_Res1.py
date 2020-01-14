@@ -21,7 +21,7 @@ class BasicRes(nn.Module):
         super().__init__()
 
         self.last_layer = last_layer
-        self.conv1 = nn.Conv3d(insize,outsize,kernel_size=kernel, stride=init_stride, padding=pad)
+        self.conv1 = nn.Conv3d(insize,outsize,kernel_size=kernel, stride=init_stride, padding=pad,bias=False)
 
         self.norm_relu_conv = nn.Sequential(nn.InstanceNorm3d(outsize),
                                    nn.LeakyReLU(inplace=True),
@@ -34,7 +34,7 @@ class BasicRes(nn.Module):
         self.last_layer_op = nn.Sequential(nn.InstanceNorm3d(outsize),
                                            nn.LeakyReLU(inplace=True),
                                            nn.Upsample(scale_factor=2, mode='nearest'),
-                                           nn.Conv3d(outsize, outsize, kernel_size=3, stride=1, padding=1),
+                                           nn.Conv3d(outsize, outsize, kernel_size=3, stride=1, padding=1,bias=False),
                                            nn.InstanceNorm3d(outsize),
                                            nn.LeakyReLU(inplace=True),)
 
@@ -61,20 +61,20 @@ class BasicDecoder(nn.Module):
         super().__init__()
         
         self.last_layer = last_layer
-        self.baseconv = nn.Sequential(nn.Conv3d(insize, insize, kernel_size=kernel, stride=init_stride, padding=pad),
+        self.baseconv = nn.Sequential(nn.Conv3d(insize, insize, kernel_size=kernel, stride=init_stride, padding=pad,bias=False),
                                       nn.InstanceNorm3d(insize),
                                       nn.LeakyReLU(inplace=True),)
 
-        self.conv1x1 = nn.Conv3d(insize, outsize,kernel_size=1, stride=1, padding=0)
+        self.conv1x1 = nn.Conv3d(insize, outsize,kernel_size=1, stride=1, padding=0,bias=False)
 
         self.upconv = nn.Sequential(nn.InstanceNorm3d(outsize),
                                            nn.LeakyReLU(inplace=True),
                                            nn.Upsample(scale_factor=2, mode='nearest'),
-                                           nn.Conv3d(outsize, outsize, kernel_size=3, stride=1, padding=1),
+                                           nn.Conv3d(outsize, outsize, kernel_size=3, stride=1, padding=1,bias=False),
                                            nn.InstanceNorm3d(outsize),
                                            nn.LeakyReLU(inplace=True),)
 
-        self.upconv_lastlayer = nn.Sequential(nn.Conv3d(insize, outsize, kernel_size=kernel, stride=init_stride, padding=pad),
+        self.upconv_lastlayer = nn.Sequential(nn.Conv3d(insize, outsize, kernel_size=kernel, stride=init_stride, padding=pad,bias=False),
                                                nn.InstanceNorm3d(outsize),
                                                nn.LeakyReLU(inplace=True),)
 

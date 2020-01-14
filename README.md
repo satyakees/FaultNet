@@ -54,21 +54,12 @@ The current best model, with code released, in this repo is (UNet-Res1) which si
 * models : contains the 3 model scripts
 * loaders: simple custom loader scripts to efficiently feed the data (TODO:augmentations)
 * scripts: to run the trainining (train.py) and prediction (predict.py) scripts. Both only work on GPU enabled devices.
-* Notebooks: example of running the prediction within a jupyter notebook (GPU enabled machine only)
 * zoo : trained model files. 
+* data: training and test data in npy format.
 
 ### Training and Test Data
 
-* Download training and test dataset from [here](https://drive.google.com/drive/folders/1bC2FiccaC2UJEVkeX-GRE-K3e_i0n72M?usp=sharing). All data is in numpy format with shape X,Y,Z. The TestSet images have been used to benchmark the models. 
+* Download training and test dataset from data dir. All data is in numpy format with shape X,Y,Z. The TestSet images have been used to benchmark the models. 
 
  
  
-* unet_3d_res1 is a standard 3D-UNet with Residual blocks. The primary performace uplift comes from using a simple Res-block which is structured as:  
-
-
-&nbsp;&nbsp;&nbsp;&nbsp; Conv1-----------------(+) IN -- LR  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|     
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|     
-&nbsp;&nbsp;&nbsp;&nbsp; IN -- LR --Conv2 -------
-
-&nbsp;&nbsp;&nbsp;&nbsp; conv1: (3x3) conv3d with stride = 2        

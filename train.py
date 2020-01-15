@@ -132,12 +132,12 @@ def main(args):
         val_accuracy = []
         model.train()
         for i, (images, labels) in enumerate(training_data_loader):
-            self.optimizer.zero_grad()
+            optimizer.zero_grad()
             with torch.set_grad_enabled(True):
                 pred_dict = model(images.float().cuda())
                 loss = LossFunction(pred_dict, labels.long().cuda(),1)
                 loss.backward()
-                self.optimizer.step()
+                optimizer.step()
 
             train_loss +=loss.item()
             train_accuracy.append(compute_iou(output_dict['logits'].detach().cpu().numpy(), \
@@ -151,8 +151,8 @@ def main(args):
                 best_train_loss = train_loss
                 best_train_iou = train_iou_mean
                 save_state = {'epoch': epoch+1,
-                              'model_state': self.model.state_dict(),
-                              'optimizer_state': self.optimizer.state_dict()}
+                              'model_state': model.state_dict(),
+                              'optimizer_state': optimizer.state_dict()}
                 modelfile = model_arch + '_'+ str(epoch+1) + '.pkl'
                 torch.save(save_state, os.path.join(output_path,modelfile)
         else:
@@ -172,8 +172,8 @@ def main(args):
                 best_val_loss = validation_loss
                 best_val_iou =  val_iou_mean
                 save_state = {'epoch': epoch+1,
-                              'model_state': self.model.state_dict(),
-                              'optimizer_state': self.optimizer.state_dict()}
+                              'model_state': model.state_dict(),
+                              'optimizer_state': optimizer.state_dict()}
                 modelfile = model_arch + '_'+ str(epoch+1) + '.pkl'
                 torch.save(save_state, os.path.join(output_path,modelfile)
 

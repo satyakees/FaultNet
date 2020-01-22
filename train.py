@@ -65,11 +65,11 @@ def check_folder(data_path):
     label_list = []
 
     for image in os.listdir(image_path):
-        if image.endswith('.jpg'):
+        if image.endswith('.npy'):
             image_list.append(image.split('.')[0])
 
     for label in os.listdir(label_path):
-        if label.endswith('.png'):
+        if label.endswith('.npy'):
             label_list.append(label.split('.')[0])
 
     image_list.sort()

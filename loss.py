@@ -51,7 +51,7 @@ def cross_entropy_3D(input, target, flagmain, random_weight_flag=False, weight=N
     if random_wt_flag==True:
         class_weights = [1.0 for _ in range(c)]
         class_weights[1] = random.choice(np.arange(1,2,0.1))
-        class_weights = torch.FloatTensor(my_weights).cuda()
+        class_weights = torch.FloatTensor(class_weights).cuda()
         loss = F.nll_loss(log_p, target, weight=class_weights, size_average=False)
     else:
         loss = F.nll_loss(log_p, target, size_average=False)

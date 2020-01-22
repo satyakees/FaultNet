@@ -9,6 +9,7 @@ PyTorch implementation of various 3d-unets for fault picking. We use [Xinming Wu
 
 The current best model, with code released, in this repo is (UNet-Res1) which siginificantly outperforms the original Wu model and both VNets in terms of iou on the test set. The unreleased model UNet-Res2 is **SOTA** for the test-set. Code to be released.
 
+TO BE ADDED : Deep-Supervision, Recurrent-UNets, Attention UNets 
 #### Current model IOUs
 
 | Filename | WU | VNet(CE+Dice) | VNet-Modified | UNet_Res1(CE) | Unet-Res2(**SOTA**) | Unet-Res2(TTA) **SOTA** |  

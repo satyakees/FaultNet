@@ -14,7 +14,7 @@ TO BE ADDED : Deep-Supervision, Recurrent-UNets, Attention UNets
 #### Current model IOUs
 
 | Filename | WU | VNet(CE+Dice) | VNet-Modified | UNet-DS (TTA *SOTA*) | UNet_Res1(CE) | Unet-Res2 | Unet-Res2(TTA) **SOTA** |  
-| -- | -- | -- | -- | -- | -- | -- |  
+| -- | -- | -- | -- | -- | -- | -- | -- |  
 | 0 | 0.695 | 0.672 | 0.711 | 0.800 | 0.764 | 0.801 | 0.814 | 
 | 1 | 0.701 | 0.721 | 0.761 | 0.824 | 0.751 | 0.809 | 0.824 |
 | 2 | 0.774 | 0.672 | 0.810 | 0.851 | 0.822 | 0.864 | 0.861 | 

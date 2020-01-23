@@ -90,3 +90,60 @@ def print_network(net):
     print(net)
     print('Total number of parameters: %d' % num_params)
 
+class Unetconv_norm_lrelu(nn.Module):
+    def __init__(self, feat_in, feat_out, kernel_size=(3,3,3), padding_size=(1,1,1), init_stride=(1,1,1), bias=False):
+        super(Unetconv_norm_lrelu, self).__init__()
+        self.conv_norm_lrelu = nn.Sequential(nn.Conv3d(feat_in, feat_out, kernel_size, init_stride, padding_size, bias=False),
+                                             nn.InstanceNorm3d(feat_out),
+                                             nn.LeakyReLU(inplace=True),)
+        for m in self.children():
+            init_weights(m, init_type='kaiming')
+
+    def forward(self,inputs):
+        outputs = self.conv_norm_lrelu(inputs)
+        return outputs
+
+class Unetnorm_lrelu_conv(nn.Module):
+    def __init__(self, feat_in, feat_out, kernel_size=(3,3,3), padding_size=(1,1,1), init_stride=(1,1,1), bias=False):
+        super(Unetnorm_lrelu_conv, self).__init__()
+        self.norm_lrelu_conv = nn.Sequential(nn.InstanceNorm3d(feat_in),
+                                             nn.LeakyReLU(inplace=True),
+                                             nn.Conv3d(feat_in, feat_out, kernel_size, init_stride, padding_size, bias=False),)
+
+        for m in self.children():
+            init_weights(m, init_type='kaiming')
+
+    def forward(self,inputs):
+        outputs = self.norm_lrelu_conv(inputs)
+        return outputs
+
+class Unetlrelu_conv(nn.Module):
+    def __init__(self, feat_in, feat_out, kernel_size=(3,3,3), padding_size=(1,1,1), init_stride=(1,1,1), bias=False):
+        super(Unetlrelu_conv, self).__init__()
+        self.lrelu_conv = nn.Sequential(nn.LeakyReLU(inplace=True),
+                                        nn.Conv3d(feat_in, feat_out, kernel_size, init_stride, padding_size, bias=False),)
+
+        for m in self.children():
+            init_weights(m, init_type='kaiming')
+
+    def forward(self,inputs):
+        outputs = self.lrelu_conv(inputs)
+        return outputs
+
+class Unetnorm_lrelu_upscale_conv_norm_lrelu(nn.Module):
+    def __init__(self, feat_in, feat_out, kernel_size=(3,3,3), padding_size=(1,1,1), init_stride=(1,1,1), bias=False):
+        super(Unetnorm_lrelu_upscale_conv_norm_lrelu, self).__init__()
+        self.norm_lrelu_upscale_conv_norm_lrelu = nn.Sequential(nn.InstanceNorm3d(feat_in),
+                                             nn.LeakyReLU(inplace=True),
+                                             nn.Upsample(scale_factor=2, mode='nearest'),
+                                             nn.Conv3d(feat_in, feat_out, kernel_size, init_stride, padding_size, bias=False),
+                                             nn.InstanceNorm3d(feat_out),
+                                             nn.LeakyReLU(inplace=True),)
+
+        for m in self.children():
+            init_weights(m, init_type='kaiming')
+
+    def forward(self,inputs):
+        outputs = self.norm_lrelu_upscale_conv_norm_lrelu(inputs)
+        return outputs
+

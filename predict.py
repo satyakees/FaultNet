@@ -114,7 +114,7 @@ if __name__ == '__main__':
     parser.add_argument('-w', '--wu-pred', type=str, metavar='DIR', help='Path where WU-predictions is located', required=True)
     parser.add_argument('-o', '--output-path', type=str, metavar='DIR', help='Path where predictions will be written out', required=True)
     parser.add_argument('-m', '--model-path', type=str, metavar='DIR', help='Path where trained model is stored', required=True)
-    parser.add_argument('-arch', '--model-arch', type=str, metavar='ARCH', help='Architecture of the model (default: LinkNet34)', default='linknet34', required=False)
+    parser.add_argument('-arch', '--model-arch', type=str, metavar='ARCH', help='Architecture of the model (default: vnet)', default='linknet34', required=False)
 
     parser.add_argument('-flipflag', '--flip-flag', type=int, metavar='W', help='flip image during test for TTA 0 or 1', default=0, required=True)
     parser.add_argument('-gpu-use', '--gpu-use', type=str, metavar='H', help='which gpu to use(default: 0)', default=0, required=True)

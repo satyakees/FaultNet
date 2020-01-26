@@ -13,7 +13,7 @@ The current best model, with code released, in this repo is (UNet-Res1) which si
 TO BE ADDED : Deep-Supervision, Recurrent-UNets, Attention UNets 
 #### Current model IOUs
 
-| Filename | WU | VNet(CE+Dice) | VNet-Modified | UNet-DS (TTA *SOTA*) | UNet_Res1(CE) | Unet-Res2 | Unet-Res2(TTA) **SOTA** |  
+| Filename | WU | VNet(CE+Dice) | VNet-Modified | UNet-DS (TTA *SOTA*) | UNet-Res1(CE) | Unet-Res2 | Unet-Res2(TTA) **SOTA** |  
 | -- | -- | -- | -- | -- | -- | -- | -- |  
 | 0 | 0.695 | 0.672 | 0.711 | 0.800 | 0.764 | 0.801 | 0.814 | 
 | 1 | 0.701 | 0.721 | 0.761 | 0.824 | 0.751 | 0.809 | 0.824 |
@@ -68,4 +68,12 @@ TO BE ADDED : Deep-Supervision, Recurrent-UNets, Attention UNets
 
 * Note the TestSet is incomplete in my link, so get it from [Wu](https://github.com/xinwucwp/faultSeg/tree/master/data/validation/seis). Run the predict_dat.py sript for this
  
- 
+### Requirements
+```
+pip install -r requirements.txt
+```
+Then
+```
+pip3 install torch==1.1.0 torchvision==0.3.0
+```
+

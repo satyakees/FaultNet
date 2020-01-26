@@ -8,33 +8,38 @@ PyTorch implementation of various 3d-unets for fault picking. We use [Xinming Wu
 4. UNet-Res2  
 5. UNet-DS
 
-The current best model, with code released, in this repo is (UNet-Res1) which siginificantly outperforms the original Wu model and both VNets in terms of iou on the test set. The model UNet-Res2 is yet to be released.
+The current best model, with code released, in this repo is (UNet-Res1) which siginificantly outperforms the original Wu model and both VNets in terms of iou on the test set. The model UNet-Res2 is yet to be released. Also demonstrated is some tricks in training, in this case a simple knowledge distillation scheme. 
 
-TO BE ADDED : Deep-Supervision, Recurrent-UNets, Attention UNets 
+TO BE ADDED : Recurrent-UNets, Attention UNets 
+
+#### Knowledge Distillation (KD)
+
+* Knowledge distillation is supported via trainKD.py. Noticecabe uplift should be observed with KD (see iou list). Both teacher and student are identical for the KD here. Also no temperature used. Typically temperature should be used, but you need to play around with the value (10-20). We use the simplest implementation for KD. Better guidance can be provided like by using mean-teacher, pi-model, curriculum-training etc. Still the simplest implementation improves Mean-IOU of UNet-Res1 from 0.7003 to 0.7434. The KL-Div term is turned off during training as it needs more testing.  
+
 #### Current model IOUs
 
-| Filename | WU | VNet(CE+Dice) | VNet-Modified | UNet-DS (TTA *SOTA*) | UNet-Res1(CE) | Unet-Res2 | Unet-Res2(TTA) **SOTA** |  
-| -- | -- | -- | -- | -- | -- | -- | -- |  
-| 0 | 0.695 | 0.672 | 0.711 | 0.800 | 0.764 | 0.801 | 0.814 | 
-| 1 | 0.701 | 0.721 | 0.761 | 0.824 | 0.751 | 0.809 | 0.824 |
-| 2 | 0.774 | 0.672 | 0.810 | 0.851 | 0.822 | 0.864 | 0.861 | 
-| 3 | 0.686 | 0.672 | 0.737 | 0.787 | 0.738 | 0.787 | 0.801 |
-| 4 | 0.623 | 0.672 | 0.630 | 0.691 | 0.661 | 0.686 | 0.699 |
-| 5 | 0.611 | 0.672 | 0.675 | 0.715 | 0.693 | 0.714 | 0.721 |
-| 6 | 0.651 | 0.672 | 0.730 | 0.794 | 0.750 | 0.789 | 0.786 |
-| 7 | 0.631 | 0.672 | 0.702 | 0.754 | 0.723 | 0.750 | 0.749 |
-| 8 | 0.698 | 0.672 | 0.731 | 0.756 | 0.744 | 0.761 | 0.758 |
-| 9 | 0.598 | 0.672 | 0.669 | 0.659 | 0.649 | 0.691 | 0.693 |
-| 10 | 0.706 | 0.724 | 0.799 | 0.833 | 0.789 | 0.834 | 0.843 |
-| 11 | 0.632 | 0.654 | 0.653 | 0.715 | 0.703 | 0.709 | 0.732 |
-| 12 | 0.609 | 0.614 | 0.639 | 0.732 | 0.665 | 0.708 | 0.721 |
-| 13 | 0.493 | 0.490 | 0.531 | 0.653 | 0.556 | 0.580 | 0.625 |
-| 14 | 0.598 | 0.588 | 0.641 | 0.666 | 0.658 | 0.695 | 0.689 |
-| 15 | 0.561 | 0.575 | 0.636 | 0.707 | 0.622 | 0.688 | 0.699 |
-| 16 | 0.652 | 0.636 | 0.661 | 0.734 | 0.684 | 0.729 | 0.747 |
-| 17 | 0.672 | 0.727 | 0.729 | 0.768 | 0.738 | 0.763 | 0.770 |
-| 18 | 0.576 | 0.585 | 0.650 | 0.708 | 0.671 | 0.684 | 0.703 |
-| 19 | 0.529 | 0.537 | 0.594 | 0.722 | 0.625 | 0.685 | 0.701 |
+| Filename | WU | VNet(CE+Dice) | VNet-Modified | UNet-DS (TTA *SOTA*) | UNet-Res1(CE) | Unet-Res2 | Unet-Res2(TTA) **SOTA** | UNet-Res1-KD |  
+| -- | -- | -- | -- | -- | -- | -- | -- | -- |  
+| 0 | 0.695 | 0.672 | 0.711 | 0.800 | 0.764 | 0.801 | 0.814 | 0.812 | 
+| 1 | 0.701 | 0.721 | 0.761 | 0.824 | 0.751 | 0.809 | 0.824 | 0.796 |
+| 2 | 0.774 | 0.672 | 0.810 | 0.851 | 0.822 | 0.864 | 0.861 | 0.837 |
+| 3 | 0.686 | 0.672 | 0.737 | 0.787 | 0.738 | 0.787 | 0.801 | 0.786 |
+| 4 | 0.623 | 0.672 | 0.630 | 0.691 | 0.661 | 0.686 | 0.699 | 0.676 |
+| 5 | 0.611 | 0.672 | 0.675 | 0.715 | 0.693 | 0.714 | 0.721 | 0.719 |
+| 6 | 0.651 | 0.672 | 0.730 | 0.794 | 0.750 | 0.789 | 0.786 | 0.782 |
+| 7 | 0.631 | 0.672 | 0.702 | 0.754 | 0.723 | 0.750 | 0.749 | 0.757 |
+| 8 | 0.698 | 0.672 | 0.731 | 0.756 | 0.744 | 0.761 | 0.758 | 0.763 |
+| 9 | 0.598 | 0.672 | 0.669 | 0.659 | 0.649 | 0.691 | 0.693 | 0.695 |
+| 10 | 0.706 | 0.724 | 0.799 | 0.833 | 0.789 | 0.834 | 0.843 | 0.841 |
+| 11 | 0.632 | 0.654 | 0.653 | 0.715 | 0.703 | 0.709 | 0.732 | 0.726 |
+| 12 | 0.609 | 0.614 | 0.639 | 0.732 | 0.665 | 0.708 | 0.721 | 0.723 |
+| 13 | 0.493 | 0.490 | 0.531 | 0.653 | 0.556 | 0.580 | 0.625 | 0.630 |
+| 14 | 0.598 | 0.588 | 0.641 | 0.666 | 0.658 | 0.695 | 0.689 | 0.707 |
+| 15 | 0.561 | 0.575 | 0.636 | 0.707 | 0.622 | 0.688 | 0.699 | 0.700 |
+| 16 | 0.652 | 0.636 | 0.661 | 0.734 | 0.684 | 0.729 | 0.747 | 0.729 |
+| 17 | 0.672 | 0.727 | 0.729 | 0.768 | 0.738 | 0.763 | 0.770 | 0.781 |
+| 18 | 0.576 | 0.585 | 0.650 | 0.708 | 0.671 | 0.684 | 0.703 | 0.703 |
+| 19 | 0.529 | 0.537 | 0.594 | 0.722 | 0.625 | 0.685 | 0.701 | 0.707 |
 
 * WU model results are grabbed from the predictions by [Wu](https://github.com/xinwucwp/faultSeg/tree/master/data/validation/predict). 
 
@@ -56,11 +61,11 @@ TO BE ADDED : Deep-Supervision, Recurrent-UNets, Attention UNets
 
 ### Directory layout
 
-* models : contains the 3 model scripts
+* models : contains the model scripts
 * loaders: simple custom loader scripts to efficiently feed the data (TODO:augmentations)
 * scripts: to run the trainining (train.py) and prediction (predict.py) scripts. Both only work on GPU enabled devices.
 * zoo : trained model files. 
-* data: training and test data in npy format.
+* data: training and test data (is incomplete, grab is from Wu) in npy format.
 
 ### Training and Test Data
 

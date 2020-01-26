@@ -87,7 +87,7 @@ def loss_teacher(logits_teacher, logits_student, Temp=20):
      """
 
     KLD_loss = nn.KLDivLoss()(F.log_softmax(logits_student/Temp, dim=1), \
-                                F.log_softmax(logits_teacher/Temp, dim=1))
+                                F.softmax(logits_teacher/Temp, dim=1))  ## this needs to be checked
     mse_loss = F.mse_loss(F.log_softmax(logits_student,dim=1), \
                                 F.log_softmax(logits_teacher, dim=1))
 
@@ -158,7 +158,7 @@ def main(args):
                 pred_dict = model(images.float().cuda())
                 loss_model = LossFunction(pred_dict, labels.long().cuda(),1)
                 kl_loss, mseloss = loss_teacher(pred_teacher['logits'], pred_dict['logits'])
-                loss = loss_model + kl_loss + mseloss
+                loss = loss_model + mseloss # + kl_loss #kld tuned off
                 loss.backward()
                 optimizer.step()
 
@@ -167,7 +167,7 @@ def main(args):
             train_accuracy.append(compute_iou(pred_dict['logits'].detach().cpu().numpy(), \
                                               labels.detach().cpu().numpy())) 
 
-            if i%10==0:
+            if i%50==0:
                 print(" at batch %d loss is %f, mseloss is %f kldiv is %f"%(i,train_loss,mseloss,kl_loss))
 
         train_loss = train_loss/len(training_data_loader)
@@ -206,7 +206,7 @@ def main(args):
                 torch.save(save_state, os.path.join(output_path,modelfile))
 
         lr_scheduler.step()
-        print(" at epoch %d train loss %f iou %f, total mseloss %f"%(epoch, train_loss, train_iou_mean, total_mseloss))
+        print(" === at epoch %d train loss %f iou %f, total mseloss %f ==="%(epoch, train_loss, train_iou_mean, total_mseloss))
  
 if __name__=="__main__":
     help_string = "PyTorch Fault picking Model Training"

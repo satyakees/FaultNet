@@ -30,7 +30,7 @@ def main(args):
     image_folder = args.file_path
     label_folder = args.label_path
     wu_folder = args.wu_pred
-    output_path = args.output_path
+    output_folder = args.output_path
     flipflag = args.flip_flag   ## For TTA, TODO
     model_arch = args.model_arch
     model_path = args.model_path
@@ -45,6 +45,7 @@ def main(args):
     print(" start loading models with arch: ",model_arch)
     parallel_flag=False
     gpu_flag=True
+    output_channels=2
     model = load_models.getModel(model_arch=model_arch,output_channels=output_channels,parallel_flag=parallel_flag)
     curr_dict = torch.load(model_path, map_location=lambda storage, loc: storage)['model_state']  # this is wrapped in DataParallel so need to undo it
     model_dict = OrderedDict()
@@ -94,7 +95,7 @@ def main(args):
         print(" ---- for filename %s iou preds: %f wu-model: %f ----"%(filename,iou_preds,iou_wu))
 
         if save_flag==True:
-            output_file = os.path.join(out_folder,filename)+".npy"
+            output_file = os.path.join(output_folder,filename)+".npy"
             np.save(output_file, pred_argmax.transpose(2,1,0)) # save in X,Y,Z format same as test labels/images
 
         count_files +=1

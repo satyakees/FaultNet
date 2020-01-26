@@ -66,5 +66,6 @@ TO BE ADDED : Deep-Supervision, Recurrent-UNets, Attention UNets
 
 * Download training and test dataset from data dir. All data is in numpy format with shape X,Y,Z. The TestSet images have been used to benchmark the models. 
 
+* Note the TestSet is incomplete in my link, so get it from [Wu](https://github.com/xinwucwp/faultSeg/tree/master/data/validation/seis). Run the predict_dat.py sript for this
  
  

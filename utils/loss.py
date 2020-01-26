@@ -72,19 +72,6 @@ def CE_plus_Dice(input, target, flagmain, random_weight_flag=True, num_channels=
     return loss_ce + loss_dice
 
 
- 
-def loss_teacher(logits_teacher, logits_student, Temp=20):
-    """
-       loss between teacher and student
-     """
-
-    KLD_loss = nn.KLDivLoss()(F.log_softmax(logits_student/Temp, dim=1), \
-                                F.log_softmax(logits_teacher/Temp, dim=1))
-    mse_loss = F.mse_loss(F.log_softmax(logits_student,dim=1), \
-                                F.log_softmax(logits_teacher, dim=1))
-
-    return KLD_loss, mse_loss
-
 def loss_teacher(logits_teacher, logits_student, Temp=20):
     """
        loss between teacher and student, kldiv is not good, basically mse is hood enough

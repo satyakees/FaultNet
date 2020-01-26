@@ -85,7 +85,7 @@ def check_folder(data_path):
 def main(args):
 
     training_data_path = args.training_path
-    model_name = args.model_name
+    output_path = args.model_name
 
     model_arch = args.model_arch
     batch_size = args.batch_size
@@ -94,7 +94,7 @@ def main(args):
 
     output_channels = 2
 
-    print(" ---model will be written at %s ---  "%(model_name))
+    print(" ---model will be written at %s ---  "%(output_path))
     print("----- model arch is %s -----  "%(model_arch))
     print("----- output_channels %d "%(output_channels))
 
@@ -142,6 +142,9 @@ def main(args):
             train_accuracy.append(compute_iou(pred_dict['logits'].detach().cpu().numpy(), \
                                               labels.detach().cpu().numpy())) 
 
+            if i%50==0:
+                print(" at batch %d loss is %f"%(i,train_loss))
+
         train_loss = train_loss/len(training_data_loader)
         train_iou_mean = np.concatenate(train_accuracy).mean()
 
@@ -186,7 +189,7 @@ if __name__=="__main__":
 
     parser.add_argument('-t', '--training-path', type=str, metavar='DIR', help='Path where training data exists', required=True)
     parser.add_argument('-vl', '--validation-path', type=str, metavar='DIR', help='Path where validation data exists', required=False)  #TODO
-    parser.add_argument('-n', '--model-name', type=str, metavar='DIR', help='Name of model to be stored', required=True)
+    parser.add_argument('-n', '--model-name', type=str, metavar='DIR', help='Path of model to be stored', required=True)
 
     parser.add_argument('-bs', '--batch-size', type=int, metavar='N', help='Batch size', default=8, required=True)
     parser.add_argument('--epoch-count', type=int, metavar='N', help='Number of epochs (default: 100)', default=100, required=True)

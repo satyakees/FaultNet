@@ -80,7 +80,7 @@ def loss_teacher(logits_teacher, logits_student, Temp=20):
     KLD_loss = nn.KLDivLoss()(F.log_softmax(logits_student/Temp, dim=1), \
                                 F.log_softmax(logits_teacher/Temp, dim=1))
     mse_loss = F.mse_loss(F.log_softmax(logits_student,dim=1), \
-                                F.log_softmax(logits_teacher, dim=1))
+                                F.softmax(logits_teacher, dim=1))
 
     return KLD_loss, mse_loss
 

@@ -3,7 +3,6 @@
 
 
 import os, sys
-sys.path.append('../')
 from collections import defaultdict
 from copy import deepcopy
 import argparse
@@ -11,9 +10,9 @@ import logging
 import datetime
 import time
 import numpy as np
-import json
+#import json
 import csv
-import pandas as pd
+#import pandas as pd
 
 import torch
 import torch.nn as nn
@@ -22,12 +21,12 @@ import torch.nn.functional as F
 from torch.autograd import Variable
 
 from loaders import dataloader 
-from .loss import dice_random_weight, cross_entropy_3D, CE_plus_Dice
+from utils.loss import dice_random_weight, cross_entropy_3D, CE_plus_Dice
 from models import load_models
 
 def compute_iou(preds, trues):
 
-    b,c,_,_,_ = preds.size()
+    b,c,_,_,_ = preds.shape
     if c==2:
        preds = np.argmax(preds, axis=1)
     preds = preds.reshape(b,-1)
@@ -140,7 +139,7 @@ def main(args):
                 optimizer.step()
 
             train_loss +=loss.item()
-            train_accuracy.append(compute_iou(output_dict['logits'].detach().cpu().numpy(), \
+            train_accuracy.append(compute_iou(pred_dict['logits'].detach().cpu().numpy(), \
                                               labels.detach().cpu().numpy())) 
 
         train_loss = train_loss/len(training_data_loader)
@@ -154,7 +153,7 @@ def main(args):
                               'model_state': model.state_dict(),
                               'optimizer_state': optimizer.state_dict()}
                 modelfile = model_arch + '_'+ str(epoch+1) + '.pkl'
-                torch.save(save_state, os.path.join(output_path,modelfile)
+                torch.save(save_state, os.path.join(output_path,modelfile))
         else:
             model.eval()
             for i, (images, labels) in enumerate(validation_data_loader):
@@ -162,7 +161,7 @@ def main(args):
                     pred_dict = model(images.float().cuda())
                     loss = LossFunction(pred_dict, labels.long().cuda(),1)
                     validation_loss +=loss.cpu().numpy()
-                    val_accuracy.append(compute_iou(output_dict['logits'].detach().cpu().numpy(), \
+                    val_accuracy.append(compute_iou(pred_dict['logits'].detach().cpu().numpy(), \
                                                     labels.detach().cpu().numpy()))
           
             validation_loss = validation_loss/len(validation_data_loader)
@@ -175,7 +174,7 @@ def main(args):
                               'model_state': model.state_dict(),
                               'optimizer_state': optimizer.state_dict()}
                 modelfile = model_arch + '_'+ str(epoch+1) + '.pkl'
-                torch.save(save_state, os.path.join(output_path,modelfile)
+                torch.save(save_state, os.path.join(output_path,modelfile))
 
         lr_scheduler.step()
         print(" at epoch %d train loss %f iou %f"%(epoch, train_loss, train_iou_mean))

@@ -14,7 +14,15 @@ TO BE ADDED : Recurrent-UNets, Attention UNets
 
 #### Knowledge Distillation (KD)
 
-* Knowledge distillation is supported via trainKD.py. Noticecabe uplift should be observed with KD (see iou list). Both teacher and student are identical for the KD here. Also no temperature used. Typically temperature should be used, but you need to play around with the value (10-20). We use the simplest implementation for KD. Better guidance can be provided like by using mean-teacher, pi-model, curriculum-training etc. Still the simplest implementation improves Mean-IOU of UNet-Res1 from 0.7003 to 0.7434. The KL-Div term is turned off during training as it needs more testing.  
+* Knowledge distillation is supported via trainKD.py. Noticeable uplift is observed with KD (see iou list) at the cost of an additional training run (Note the distilled network does not need the full epoch-run as the teacher). Both teacher and student are identical for the KD here. Also no temperature is used. Typically temperature should be used, but you need to play around with the value (10-20). We use the simplest implementation for KD. Better guidance can be provided by using mean-teacher, pi-model, curriculum-training etc. Still the simplest implementation improves Mean-IOU of UNet-Res1 from 0.7003 to 0.7434. The KL-Div term is turned off during training as it needs more testing. Note the KD-pass can be iterated over iseveral times by constantly changing the teacher. Pseudo-labeling is used as well. The main idea of KD is [here](https://arxiv.org/abs/1503.02531), though they are numerous ways of going about it (data dependent).
+
+* Note 1: In the KD-pass the teacher is in eval-mode, some recent work suggests having teacher in train mode as well to use INorm and Dropout params similar to training. This has not been tested here. The mse-loss can also be computed differently. 
+
+* Note 2 : TYpically the simple KD here will not handle test data with severe distribution shifts (eg. train on RTM images and predict on KDM images). 
+
+* Note 3: Ensembling several KD checkpoints and the original teacher will improve accuracy further.  
+
+* TODO: Teacher-student consistency. 
 
 #### Current model IOUs
 

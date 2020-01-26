@@ -7,7 +7,7 @@ from torch.utils import data
 
 from .fault_dataset import FaultPrep
 
-def LoadData(training_data_path, file_list, image_size, split=0.15, workers=4, batch_size=1, transforms=None):
+def LoadData(training_data_path, file_list, split=0.15, workers=4, batch_size=1, transforms=None):
     
     if not os.path.exists(training_data_path):
         error_message = 'Folder ' + os.path.abspath(training_data_path) + ' does not exist.'

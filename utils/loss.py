@@ -22,7 +22,7 @@ def dice_random_weight(inputs, target, random_wt_flag,num_channels=2):
     if random_wt_flag==1:
         beta = random.choice(np.arange(1,2,0.1))
     else:
-        beta =1 .
+        beta =1
 
     inp_flat = inputs.contiguous().float().view(-1)
     tar_flat = target.contiguous().float().view(-1)
@@ -48,7 +48,7 @@ def cross_entropy_3D(input, target, flagmain, random_weight_flag=False, weight=N
     log_p = log_p.transpose(1, 2).transpose(2, 3).transpose(3, 4).contiguous().view(-1, c)
     target = target.view(target.numel())
 
-    if random_wt_flag==True:
+    if random_weight_flag==True:
         class_weights = [1.0 for _ in range(c)]
         class_weights[1] = random.choice(np.arange(1,2,0.1))
         class_weights = torch.FloatTensor(class_weights).cuda()
